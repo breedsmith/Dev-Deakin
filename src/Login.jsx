@@ -1,6 +1,6 @@
 import React, {useState, useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserDocFromAuth, signinAuthUserWithEmailAndPassword} from './utils/firebase';
+import { createUserDocFromAuth, signinAuthUserWithEmailAndPassword, signInWithGooglePopup} from './utils/firebase';
 import { UserContext } from './context/user.context'
 import Input from './Input';
 import './Login.css';
@@ -10,7 +10,17 @@ const style = {
     fontSize:"15px"
 }
 
+const google = {
+    width:"150px"
+}
+
 const Login = (props)=> {
+
+    const logGoogleUser = async () =>{
+        const {user} = await signInWithGooglePopup();
+        const userDocRef = await createUserDocFromAuth(user)
+        navigate("/homepage")
+    }
 
     const {setCurrentUser} = useContext(UserContext)
     const [contact, setContact] = useState({
@@ -80,6 +90,12 @@ const Login = (props)=> {
             <div className='center'>
                 <button onClick={handleSubmit}>
                     Login
+                </button>
+            </div>
+            <br></br>
+            <div className='center'>
+                <button onClick={logGoogleUser} style={google}>
+                    Log in with Google
                 </button>
             </div>
             <br></br>
