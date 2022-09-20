@@ -9,7 +9,8 @@ const style = {
 
 const QuestionCard = (props)=> {
     return(
-    <div className="QuestionCard">
+    <div style={style}>
+        <div className="QuestionCard">
             <div className="questionTitle">
                 <p id="question-text" style={style}><b>{props.title}</b></p>
             </div>
@@ -23,6 +24,7 @@ const QuestionCard = (props)=> {
             <p>By {props.author}</p>
         </div>
         <button className="more" id="see-more" style={style}>See More...</button>
+        </div>
     </div>
     )
 }
