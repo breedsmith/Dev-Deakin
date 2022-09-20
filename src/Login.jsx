@@ -1,6 +1,7 @@
 import React, {useState, useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserDocFromAuth, signinAuthUserWithEmailAndPassword, signInWithGooglePopup} from './utils/firebase';
+import {getAuth} from "firebase/auth";
 import { UserContext } from './context/user.context'
 import Input from './Input';
 import './Login.css';
@@ -20,6 +21,19 @@ const Login = (props)=> {
         const {user} = await signInWithGooglePopup();
         const userDocRef = await createUserDocFromAuth(user)
         navigate("/homepage")
+    }
+
+    const auth = getAuth()
+
+    const onLogout = () => {
+        try{
+            auth.signOut();
+            alert("Logged out successfully.")
+        }
+        catch{
+            alert("Can't log out because no one is signed in.")
+        }
+        navigate("/");
     }
 
     const {setCurrentUser} = useContext(UserContext)
@@ -95,7 +109,13 @@ const Login = (props)=> {
             <br></br>
             <div className='center'>
                 <button onClick={logGoogleUser} style={google}>
-                    Log in with Google
+                    Login with Google
+                </button>
+            </div>
+            <br></br>
+            <div className='center'>
+                <button onClick={onLogout}>
+                    Logout
                 </button>
             </div>
             <br></br>
