@@ -8,24 +8,30 @@ function QuestionList (props)
 
 {
     const {questions} = useContext(QuestionContext)
-    console.log(Array.isArray(questions))
-    console.log(questions)
-    const filteredQuestion = ()=> {
-        try{
-            const test = questions.filter((questions)=>{
-            return questions.title.toLowerCase().includes(props.searchQuestion.toLowerCase())
-            })
-            return test
-        }
-        catch(error){
-            console.log(error)
-        }
-    }
+    // const filteredQuestion = ()=> {
+    //     try{
+    //         const test = questions.filter((questions)=>{
+    //         return questions.title.toLowerCase().includes(props.searchQuestion.toLowerCase())
+    //         })
+    //         return test
+    //     }
+    //     catch(error){
+    //         console.log(error)
+    //     }
+    // }
 
     //const test = filteredQuestion()
 
-    //console.log(questions)
+    console.log(questions)
     return <div className='QuestionCards'>
+        {Object.keys(questions).map((name) =>
+        <QuestionCard
+        key = {questions[name].userUid}
+        title = {questions[name].title}
+        question = {questions[name].problem}
+        author = {questions[name].userEmail}
+        />
+        )}
     </div>
 }
 

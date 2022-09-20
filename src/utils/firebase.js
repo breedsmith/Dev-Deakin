@@ -119,8 +119,8 @@ const firebaseConfig = {
     const q = query(collectionRef)
     const querySnapshot = await getDocs(q);
      const questionMap = querySnapshot.docs.reduce((acc, docSnapshot) =>{
-      const { title , ...items } = docSnapshot.data();
-      acc[title.toLowerCase()] = items
+      const { createdAt , ...items } = docSnapshot.data();
+      acc[createdAt] = items
       return acc;
      }, {})
      return questionMap;

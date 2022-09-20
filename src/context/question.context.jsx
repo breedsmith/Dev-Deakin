@@ -4,12 +4,12 @@ import { fetchQuestionAndDocuments } from "../utils/firebase";
 
 export const QuestionContext = createContext(
     {
-        questions: [],
+        questions: {},
     }
 )
 
 export const QuestionProvider = ({children}) =>{
-    const [questions, setQuestions] = useState([])
+    const [questions, setQuestions] = useState({})
     useEffect(()=>{
         const fetchQuestionMap = async() =>{
             const questionMap = await fetchQuestionAndDocuments();
