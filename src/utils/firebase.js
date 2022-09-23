@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
+import {useContext} from 'react'
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
-import {getFirestore, doc, getDoc, setDoc, collection, query, getDocs} from 'firebase/firestore';
+import {getFirestore, doc, getDoc, setDoc, collection, query, getDocs, where} from 'firebase/firestore';
+import {QuestionContext} from '../context/question.context'
 
 
 // Your web app's Firebase configuration

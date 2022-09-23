@@ -1,35 +1,44 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import QuestionCard from './QuestionCard'
 import {QuestionContext} from './context/question.context'
 import './QuestionCard.css';
-import { useEffect } from 'react';
+import { query, where } from "firebase/firestore";
 
 function QuestionList (props)
 
 {
     const {questions} = useContext(QuestionContext)
-    // const filteredQuestion = ()=> {
-    //     try{
-    //         const test = questions.filter((questions)=>{
-    //         return questions.title.toLowerCase().includes(props.searchQuestion.toLowerCase())
-    //         })
-    //         return test
-    //     }
-    //     catch(error){
-    //         console.log(error)
-    //     }
-    // }
+    // const [filteredQuestionsState, setFQS] = useState([])
 
-    //const test = filteredQuestion()
+    // useEffect(()=>{
+    //     const fetchQuestionMap = async() =>{
+    //         const questionMap = await Object.values(questions);
+    //         try{
+    //             setFQS(questionMap)
+    //         }
+    //         catch(error){
+    //             console.log(error.message)
+    //         }
+    //     }
+    //     fetchQuestionMap();
+    //     console.log(filteredQuestionsState)
 
-    console.log(questions)
+    // }, [filteredQuestionsState])
+
+    const arrayQuestions = Object.values(questions);
+
+    const filteredQuestions = arrayQuestions.filter((arrayQuestions)=>{
+        return arrayQuestions.title.toLowerCase().includes(props.searchQuestion.toLowerCase())
+    })
+
+
     return <div className='QuestionCards'>
-        {Object.keys(questions).map((name) =>
+        {filteredQuestions.map((questions) =>
         <QuestionCard
-        key = {questions[name].userUid}
-        title = {questions[name].title}
-        question = {questions[name].problem}
-        author = {questions[name].userEmail}
+        key = {questions.userUid}
+        title = {questions.title}
+        question = {questions.problem}
+        author = {questions.userEmail}
         />
         )}
     </div>
